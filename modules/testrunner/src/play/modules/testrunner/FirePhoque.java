@@ -28,6 +28,7 @@ public class FirePhoque {
         Logger.getLogger("com.gargoylesoftware").setLevel(Level.OFF);
 
         String app = System.getProperty("application.url", "http://localhost:9000");
+        String headlessBrowser = System.getProperty("headlessBrowser", "INTERNET_EXPLORER_8");
 
         // Tests description
         File root = null;
@@ -51,14 +52,13 @@ public class FirePhoque {
             System.out.println("~ The application does not start. There are errors: " + e);
             System.exit(-1);
         }
-        runTestsInHeadlessBrowser(app, root, selenium, tests, true);
+        runTestsInHeadlessBrowser(app, root, selenium, tests, headlessBrowser, true);
     }
 
-    public static void runTestsInHeadlessBrowser(String app, File root, String selenium, List<String> tests, boolean writeToConsole) throws MalformedURLException, InterruptedException {
+    public static void runTestsInHeadlessBrowser(String app, File root, String selenium, List<String> tests, String headlessBrowser, boolean writeToConsole) throws MalformedURLException, InterruptedException {
 
         // Let's tweak WebClient
 
-        String headlessBrowser = System.getProperty("headlessBrowser", "INTERNET_EXPLORER_8");
         BrowserVersion browserVersion;
         if ("FIREFOX_3".equals(headlessBrowser)) {
             browserVersion = BrowserVersion.FIREFOX_3;

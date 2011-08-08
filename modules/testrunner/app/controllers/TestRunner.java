@@ -188,7 +188,8 @@ public class TestRunner extends Controller {
             tests.add(test);
 
             String testRunnerUrl = Router.reverse(Play.modules.get("_testrunner").child("/public/test-runner/selenium/TestRunner.html"));
-            FirePhoque.runTestsInHeadlessBrowser(applicationUrl, Play.getFile("test-result"), testRunnerUrl, tests, false);
+            String headlessBrowser = Play.configuration.getProperty("headlessBrowser");
+            FirePhoque.runTestsInHeadlessBrowser(applicationUrl, Play.getFile("test-result"), testRunnerUrl, tests, headlessBrowser, false);
         }
     }
 	
