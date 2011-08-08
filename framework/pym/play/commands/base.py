@@ -232,8 +232,12 @@ def autotest(app, args):
     # Run FirePhoque
     print "~"
 
+    headless_browser = ''
+    if app.readConf('headlessBrowser'):
+        headless_browser = app.readConf('headlessBrowser')
+
     cp_args = getFirephoqueClasspath(app)
-    java_cmd = [app.java_path(), '-classpath', cp_args, '-Dapplication.url=%s://localhost:%s' % (protocol, http_port), 'play.modules.testrunner.FirePhoque']
+    java_cmd = [app.java_path(), '-classpath', cp_args, '-Dapplication.url=%s://localhost:%s' % (protocol, http_port), '-DheadlessBrowser=%s' % (headless_browser), 'play.modules.testrunner.FirePhoque']
     try:
         subprocess.call(java_cmd, env=os.environ)
     except OSError:
