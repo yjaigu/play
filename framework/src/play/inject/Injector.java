@@ -24,7 +24,10 @@ public class Injector {
                     Class<?> type = field.getType();
                     field.setAccessible(true);
                     try {
-                        field.set(null, source.getBeanOfType(type));
+                        final Object beanOfType = source.getBeanOfType(type);
+                        if (field.get(null) == null && beanOfType != null) {
+                            field.set(null, beanOfType);
+                        }
                     } catch(RuntimeException e) {
                         throw e;
                     } catch(Exception e) {
